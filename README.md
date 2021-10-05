@@ -25,3 +25,33 @@ const project = new AwsCdkConstructLibrary({
   // release: undefined,              /* Add release management to this project. */
 });
 project.synth();
+
+stack.ts
+
+
+import * as codecommit from '@aws-cdk/aws-codecommit';
+import * as cdk from '@aws-cdk/core';
+export class CdkudemyStack extends cdk.Stack {
+  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+    super(scope, id, props);
+
+    // The code that defines your stack goes here
+    new codecommit.CfnRepository(this, 'cdkcodecommitbucket', {
+
+      repositoryName: 'ExpCodeCommitRepo',
+      repositoryDescription: 'Experimenting with aws-construct for codecommit v3',
+
+    });
+  }
+
+}
+
+const devEnv = {
+  account: process.env.CDK_DEFAULT_ACCOUNT,
+  region: process.env.CDK_DEFAULT_REGION,
+};
+
+const app = new cdk.App();
+
+new CdkudemyStack(app, 'codecommit-dev-cdk-v3', { env: devEnv });
+app.synth();
