@@ -1,2 +1,2 @@
 # cdk_final
-Running cdk with s3 construct projen
+Running cdk with codecommit construct projen
